@@ -35,17 +35,16 @@ switch (command) {
 
 function myTweets() {
     
-    var myTweets = new Twitter(keys.twitter)
+    var myTweets = new Twitter(keys.twitter);
 
     myTweets.get('statuses/user_timeline', function(error, tweets, response) {
         
         if(!error) {
             for (var i = 0; i < tweets.length; i++){
-                var myTweetResults = 
-                '------------------------------------------' + '\r\n' +
-                '@' + tweets[i].user.screen_name + ': ' +
-                tweets[i].text + '\r\n' +
-                tweets[i].created_at + '\r\n';
+                var myTweetResults = '------------------------------------------' + '\r\n' +
+                                     '@' + tweets[i].user.screen_name + ': ' +
+                                     tweets[i].text + '\r\n' +
+                                     tweets[i].created_at + '\r\n';
                 console.log(myTweetResults);
             }
         } else {
