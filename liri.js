@@ -1,21 +1,23 @@
 require("dotenv").config();
 
-// variables to capture keys
+// variables to require keys
 var keys = require('./keys.js');
 var Spotify = require('node-spotify-api');
 var Twitter = require('twitter');
 var request = require('request');
 var fs = require('fs');
 
-var client = new Twitter(keys.twitter);
 
 var nodeArg = process.argv;
 var command = process.argv[2];
 var search = process.argv[3];
 
+// loops through the process.argv 
+
 for (var i = 4; i < nodeArg.length; i++) {
     search += '+' + nodeArg[i];
 }
+//----swtich case function--------//
 
 switch (command) {
     case 'my-tweets':
@@ -31,6 +33,30 @@ switch (command) {
         followDirections();
         break;
 };
+
+//------my-tweets function--------//
+
+function myTweets() {
+    
+    var myTweets = new Twitter(keys.twitter)
+
+    myTweets.get('statuses/user_timeline', function(error, tweets, response) {
+        if(!error) {
+            for (var i = 0; i < tweets.length; i++){
+                var myTweetResults = 
+                "------------------------------ " + "\r\n" +
+                "@" + tweets[i].user.screen_name + ": " +
+                tweets[i].text + "\r\n" +
+                tweets[i].created_at + "\r\n";
+                console.log(myTweetResults);
+            }
+        } else {
+            console.log("Error :"+ error);
+			return;
+        }
+        
+    });
+}
 
 //-------------spotify-this-song function-------------//
 
@@ -51,7 +77,7 @@ function nameTheSong(){
             if ( !err ) {
                 var songInfo = data.tracks.items;
 				for (var i = 0; i < 1; i++) {
-					if (songInfo[i] != undefined) {
+					if (songInfo[i] !== undefined) {
 						var spotifyResults = 
 						"Artist: " + songInfo[i].artists[0].name + "\r\n" +
 						"Song: " + songInfo[i].name + "\r\n" +
