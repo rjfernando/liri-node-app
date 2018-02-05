@@ -71,19 +71,17 @@ function nameTheSong(){
 
     mySpotify.search({ type: 'track', query: 'song' }, function(err, data) {
             
-        if ( !err ) {
-            
+        if (!err) {
             var songInfo = data.tracks.items;
             
             for (var i = 0; i < 1; i++) {
 				if (songInfo[i] !== undefined) {
-					var spotifyResults = 
-					"Artist: " + songInfo[i].artists[0].name + "\r\n" +
-					"Song: " + songInfo[i].name + "\r\n" +
-					"Album the song is from: " + songInfo[i].album.name + "\r\n" +
-					"Preview Url: " + songInfo[i].preview_url + "\r\n";
-						
-				    console.log(spotifyResults);
+				var spotifyResults = 
+				"Artist: " + songInfo[i].artists[0].name + "\r\n" +
+				"Song: " + songInfo[i].name + "\r\n" +
+				"Album the song is from: " + songInfo[i].album.name + "\r\n" +
+				"Preview Url: " + songInfo[i].preview_url + "\r\n";
+				console.log(spotifyResults);
                 }
             }
         } else {
