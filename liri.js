@@ -42,14 +42,14 @@ function myTweets() {
         if(!error) {
             for (var i = 0; i < tweets.length; i++){
                 var myTweetResults = 
-                "------------------------------------------ " + "\r\n" +
-                "@" + tweets[i].user.screen_name + ": " +
-                tweets[i].text + "\r\n" +
-                tweets[i].created_at + "\r\n";
+                '------------------------------------------' + '\r\n' +
+                '@' + tweets[i].user.screen_name + ': ' +
+                tweets[i].text + '\r\n' +
+                tweets[i].created_at + '\r\n';
                 console.log(myTweetResults);
             }
         } else {
-            console.log("Error :"+ error);
+            console.log('Error:' + error);
 			return;
         }    
     });
@@ -73,21 +73,20 @@ function nameTheSong(){
             
         if (!err) {
             var songInfo = data.tracks.items;
-            
+
             for (var i = 0; i < 1; i++) {
-				if (songInfo[i] !== undefined) {
-				var spotifyResults = 
-				"Artist: " + songInfo[i].artists[0].name + "\r\n" +
-				"Song: " + songInfo[i].name + "\r\n" +
-				"Album the song is from: " + songInfo[i].album.name + "\r\n" +
-				"Preview Url: " + songInfo[i].preview_url + "\r\n";
-				console.log(spotifyResults);
+                if (songInfo[i] !== undefined) {
+                    var spotifyResults = 'Artist: ' + songInfo[i].artists[0].name + '\r\n' +
+                                         'Song: ' + songInfo[i].name + '\r\n' +
+                                         'Album the song is from: ' + songInfo[i].album.name + '\r\n' +
+                                         'Preview Url: ' + songInfo[i].preview_url + '\r\n';
+                    console.log(spotifyResults);
                 }
             }
         } else {
             console.log('Error occurred: ' + err);
             return;
-        }   
+        }
     });
 }
 
@@ -111,15 +110,15 @@ function movieData() {
 
             var body = JSON.parse(body);
 
-            console.log("Title: " + body.Title);
-            console.log("Year: " + body.Year);
-            console.log("IMDB Rating: " + body.imdbRating);
-            console.log("Rotten Tomatoes Rating: " + body.tomatoRating);
-            console.log("Country Produced: " + body.Country);
-            console.log("Language: " + body.Language);
-            console.log("Plot: " + body.Plot);
-            console.log("Actors: " + body.Actors);
-            console.log("-------------------------------------------------------")
+            console.log('Title: ' + body.Title);
+            console.log('Year: ' + body.Year);
+            console.log('IMDB Rating: ' + body.imdbRating);
+            console.log('Rotten Tomatoes Rating: ' + body.tomatoRating);
+            console.log('Country Produced: ' + body.Country);
+            console.log('Language: ' + body.Language);
+            console.log('Plot: ' + body.Plot);
+            console.log('Actors: ' + body.Actors);
+            console.log('-------------------------------------------------------')
 
         } else {
             console.log('Error :' + error);
