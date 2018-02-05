@@ -7,12 +7,9 @@ var Twitter = require('twitter');
 var request = require('request');
 var fs = require('fs');
 
-
 var nodeArg = process.argv;
 var command = process.argv[2];
 var search = process.argv[3];
-
-// loops through the process.argv 
 
 for (var i = 4; i < nodeArg.length; i++) {
     search += '+' + nodeArg[i];
@@ -72,27 +69,29 @@ function nameTheSong(){
             songSearch = search;
         }
 
-        mySpotify.search({ type: 'track', query: 'song' }, function(err, data) {
+    mySpotify.search({ type: 'track', query: 'song' }, function(err, data) {
             
-            if ( !err ) {
-                var songInfo = data.tracks.items;
-				for (var i = 0; i < 1; i++) {
-					if (songInfo[i] !== undefined) {
-						var spotifyResults = 
-						"Artist: " + songInfo[i].artists[0].name + "\r\n" +
-						"Song: " + songInfo[i].name + "\r\n" +
-						"Album the song is from: " + songInfo[i].album.name + "\r\n" +
-						"Preview Url: " + songInfo[i].preview_url + "\r\n";
+        if ( !err ) {
+            
+            var songInfo = data.tracks.items;
+            
+            for (var i = 0; i < 1; i++) {
+				if (songInfo[i] !== undefined) {
+					var spotifyResults = 
+					"Artist: " + songInfo[i].artists[0].name + "\r\n" +
+					"Song: " + songInfo[i].name + "\r\n" +
+					"Album the song is from: " + songInfo[i].album.name + "\r\n" +
+					"Preview Url: " + songInfo[i].preview_url + "\r\n";
 						
-						console.log(spotifyResults);
-                    }
+				    console.log(spotifyResults);
                 }
-            } else {
-                console.log('Error occurred: ' + err);
-                return;
-            }   
-        });
-    }
+            }
+        } else {
+            console.log('Error occurred: ' + err);
+            return;
+        }   
+    });
+}
 
 //--------movie-this function----------//
 
