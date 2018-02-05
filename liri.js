@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-// variables to require keys
+// NPM Modules and require
 var keys = require('./keys.js');
 var Spotify = require('node-spotify-api');
 var Twitter = require('twitter');
@@ -30,7 +30,7 @@ switch (command) {
         movieData();
         break;
     case 'do-what-it-says':
-        followDirections();
+        doWhatItSays();
         break;
 };
 
@@ -41,10 +41,11 @@ function myTweets() {
     var myTweets = new Twitter(keys.twitter)
 
     myTweets.get('statuses/user_timeline', function(error, tweets, response) {
+        
         if(!error) {
             for (var i = 0; i < tweets.length; i++){
                 var myTweetResults = 
-                "------------------------------ " + "\r\n" +
+                "------------------------------------------ " + "\r\n" +
                 "@" + tweets[i].user.screen_name + ": " +
                 tweets[i].text + "\r\n" +
                 tweets[i].created_at + "\r\n";
@@ -53,8 +54,7 @@ function myTweets() {
         } else {
             console.log("Error :"+ error);
 			return;
-        }
-        
+        }    
     });
 }
 
@@ -62,9 +62,9 @@ function myTweets() {
 
 function nameTheSong(){
         
-        var mySpotify = new Spotify(keys.spotify);
+    var mySpotify = new Spotify(keys.spotify);
         
-        var songSearch;
+    var songSearch;
 
         if (search === undefined){
             songSearch = 'The Sign';
@@ -122,6 +122,7 @@ function movieData() {
             console.log("Language: " + body.Language);
             console.log("Plot: " + body.Plot);
             console.log("Actors: " + body.Actors);
+            console.log("-------------------------------------------------------")
 
         } else {
             console.log('Error :' + error);
@@ -132,13 +133,14 @@ function movieData() {
 
 // --------do-what-it-says---------//
 
-function followDirections() {
+function doWhatItSays() {
     fs.readFile('random.txt', 'utf8', function (error, data) {
         if (!error) {
             followDirections = data.split(',');
-            nameTheSong(followDirectionsResults[0], followDirectionsResults[1]);
+            nameTheSong(doWhatItSaysResults[0], doWhatItSaysResults[1]);
         } else {
             console.log('Error occurred' + error);
+            return;
         }
     });
 }
