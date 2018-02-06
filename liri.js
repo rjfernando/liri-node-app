@@ -9,11 +9,19 @@ var fs = require('fs');
 
 var nodeArg = process.argv;
 var command = process.argv[2];
-var search = process.argv[3];
+var search = "";
 
-for (var i = 4; i < nodeArg.length; i++) {
-    search += '+' + nodeArg[i];
+for (var i = 3; i < nodeArg.length; i++) {
+    if (i > 3 && i < nodeArg.length) {
+        search = search + '+' + nodeArg[i];
+    } else {
+        search += nodeArg[i];
+    }
 }
+if (search !== '') {
+    var userInput = command + ': ' + search + ',';
+}
+
 //----swtich case function--------//
 
 switch (command) {
@@ -39,7 +47,11 @@ function myTweets() {
 
     myTweets.get('statuses/user_timeline', function(error, tweets, response) {
         
-        if(!error) {
+        if (error) {
+            console.log('Error occurred: ' + err);
+            return;
+        
+        } else {
             for (var i = 0; i < tweets.length; i++){
                 var myTweetResults = '------------------------------------------' + '\r\n' +
                                      '@' + tweets[i].user.screen_name + ': ' +
@@ -47,16 +59,13 @@ function myTweets() {
                                      tweets[i].created_at + '\r\n';
                 console.log(myTweetResults);
             }
-        } else {
-            console.log('Error:' + error);
-			return;
-        }    
+        }
     });
 }
 
 //-------------spotify-this-song function-------------//
 
-function nameTheSong(){
+function nameTheSong(search){
         
     var mySpotify = new Spotify(keys.spotify);
         
@@ -68,9 +77,13 @@ function nameTheSong(){
             songSearch = search;
         }
 
-    mySpotify.search({ type: 'track', query: 'song' }, function(err, data) {
+    mySpotify.search({ type: 'track', query: 'search' }, function(err, data) {
             
-        if (!err) {
+        if (err) {
+            console.log('Error occurred: ' + err);
+            return;
+        
+        } else {
             var songInfo = data.tracks.items;
 
             for (var i = 0; i < 1; i++) {
@@ -82,9 +95,6 @@ function nameTheSong(){
                     console.log(spotifyResults);
                 }
             }
-        } else {
-            console.log('Error occurred: ' + err);
-            return;
         }
     });
 }
@@ -129,13 +139,12 @@ function movieData() {
 // --------do-what-it-says---------//
 
 function doWhatItSays() {
-    fs.readFile('random.txt', 'utf8', function (error, data) {
-        if (!error) {
-            followDirections = data.split(',');
-            nameTheSong(doWhatItSaysResults[0], doWhatItSaysResults[1]);
-        } else {
-            console.log('Error occurred' + error);
+    fs.readFile('random.txt', 'utf8', function(error, data) {
+        if (error){
+            console.log(error);
             return;
         }
+        console.log(data);
+            var saySomething = data.split(',');
     });
-}
+};
