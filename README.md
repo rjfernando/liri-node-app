@@ -22,6 +22,7 @@ Commands for LIRI:
 2. `Javascript`
 3. `JQuery`
 4. `CSS`
+5. 'CLI'
 
 
 # Maintenance 
